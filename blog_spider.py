@@ -3,11 +3,6 @@ import json
 import scrapy
 
 
-# DOWNLOAD_DELAY = 2
-
-# key = "AIzaSyAiJC7FXGcrQwS7_25H8oBMQk5G9zFGDiU"
-# URL = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}"
-
 class BlogSpider(scrapy.Spider):
     name = 'blogspider'
     start_urls = ['https://www.civitatis.com/es/madrid/']
