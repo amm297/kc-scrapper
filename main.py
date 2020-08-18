@@ -12,7 +12,7 @@ LAT_LNG_URL = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key=
 
 def print_results_to_file(item, filep):
     print(
-        f"{item.get('title')};{item.get('postal_code')};{item.get('address')};{item.get('latitude')};{item.get('longitude')};{item.get('tags')};{item.get('reviews')};{item.get('ratings')};{item.get('price')};",
+        f"{item.get('title')};{item.get('type')};{item.get('rating')};{item.get('reviews')};{item.get('address')};{item.get('latitude')};{item.get('longitude')};{item.get('postal_code')};{item.get('price')};{item.get('description')};{item.get('tags')};",
         file=filep)
 
 
@@ -21,7 +21,7 @@ def export_results(results):
     file_name = f"el-tenedor.csv"
     filep = open('./{}'.format(file_name), 'w')
     print(
-        "NOMBRE;CODIGO_POSTAL;DIRECCION;LATITUD;LONGITUD;ETIQUETAS;OPINIONES;VALORACION;PRECIO;",
+        "TITLE;TYPE;RATING;REVIEWS;ADDRESS;LATITUDE;LONGITUDE;POSTAL_CODE;PRICE;DESCRIPTION;TAGS;",
         file=filep)
     [print_results_to_file(it, filep) for it in results]
     filep.close()
