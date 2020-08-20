@@ -20,14 +20,14 @@ class BlogSpider(scrapy.Spider):
             return 0, 0, 0
 
     def parse_restuaurant(self, response):
-        print('holiii')
+        print('------------RESTAURANT----------')
         title_block = response.css('div._2EkA4 div._1x8V- div._3Vhpd')
         type_tags = [it for it in title_block.xpath('//div[@data-test="restaurant-page-restaurant-tags"]').css("p span ::text").extract() if '.css' not in it]
         resturant_type = type_tags[-2] if len(type_tags) >= 2 else type_tags[0]
         title = title_block.css('div._2r661 h1 ::text').extract_first().strip()
         rating = title_block.css('div._2r661 div._3eEzZ span span ::text').extract_first().strip()
         reviews = title_block.css('div._2r661 div._3eEzZ div ::text').extract_first().strip().split(' ')[0]
-        address = title_block.css('div a.n3G0C span ::text').extract_first().strip()
+        address = title_block.css('div a.n3G0C span ::text').extract_first().strip().replace(';', ',')
         latitude, longitude, postal_code = self.get_lat_lng(address)
         price = title_block.css('div p.css-1af5316 ::text').extract_first().strip().replace(u'\xa0', u' ').split(' ')[
             -2]
@@ -38,9 +38,6 @@ class BlogSpider(scrapy.Spider):
         tags = ', '.join([it for it in details_block.xpath(
             '//div[@name="infoSection"]/div/div/h2[contains(span, "Caract")]/following-sibling::p[1]/span').css(
             'a ::text').extract() if it])
-
-        if (title == 'Alma Matter'):
-            print('test')
 
         yield {
             'title': title,
